@@ -14,7 +14,7 @@ var db *sql.DB
 func SetupRoutes(d *sql.DB) {
 	db = d
 	router := gin.Default()
-	router.GET("client/orders", GetOrdersClient)
+	router.GET("new/orders", GetOrdersClient)
 
 	router.Run("localhost:8008")
 }
