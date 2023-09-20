@@ -6,6 +6,7 @@ import (
 
 	models "janio-client-backend/models"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,14 +15,18 @@ var db *sql.DB
 func SetupRoutes(d *sql.DB) {
 	db = d
 	router := gin.Default()
-	router.Use(CORSMiddleware())
-
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:8080", "http://localhost:8008"},
+		AllowMethods:     []string{"POST, GET, OPTIONS, PUT, DELETE, UPDATE"},
+		AllowHeaders:     []string{"Authorization", "Content-Type"},
+		AllowCredentials: true,
+	}))
 	router.GET("new/orders", GetOrdersClient)
 
 	router.Run("localhost:8008")
 }
 
-func CORSMiddleware() gin.HandlerFunc {
+/*func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
@@ -35,7 +40,7 @@ func CORSMiddleware() gin.HandlerFunc {
 			c.Next()
 		}
 	}
-}
+}*/
 
 func GetOrdersClient(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, models.OrdersInit)
