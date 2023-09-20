@@ -10,15 +10,16 @@ import (
 	"net/http"
 
 	"janio-client-backend/models"
-	routes "janio-client-backend/routes"
+	"janio-client-backend/routes"
 )
 
 var db *sql.DB
 
 func main() {
-	routes.SetupRoutes(db)
+	fmt.Println("Welcome to main() function")
 	someFunction()
 
+	routes.SetupRoutes(db)
 }
 
 func someFunction() {
@@ -39,5 +40,5 @@ func someFunction() {
 		log.Fatalln(err)
 	}
 	sb := string(body)
-	fmt.Printf(sb)
+	fmt.Printf("%s\n", sb)
 }
