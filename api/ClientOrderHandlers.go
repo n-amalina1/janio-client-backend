@@ -50,10 +50,11 @@ func pushToAdmin() {
 	}
 	sb := string(body)
 	fmt.Printf("%s\n", sb)
+	fmt.Printf("Successfully Added new orders")
 }
 
 func PushToAdminInterval() {
-	ticker := time.NewTicker(2 * time.Second)
+	ticker := time.NewTicker(1 * time.Hour)
 
 	done := make(chan bool)
 	go func() {
@@ -70,6 +71,6 @@ func PushToAdminInterval() {
 		}
 	}()
 
-	time.Sleep(10 * time.Second)
+	time.Sleep(10 * time.Hour)
 	done <- true
 }
